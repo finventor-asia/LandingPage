@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="vi">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Công ty phát triển phần mềm chuyên nghiệp - Ứng dụng Web & Mobile, Giải pháp Tài chính">
-    <title>TechSoft Solutions - Phát triển Phần mềm Chuyên nghiệp</title>
+    <title>Finventor Asia - Professional Software Development</title>
     <style>
         * {
             margin: 0;
@@ -530,7 +530,7 @@
     <!-- Header -->
     <header>
         <nav>
-            <div class="logo">TechSoft Solutions</div>
+            <div class="logo">Finventor Asia</div>
             <ul class="nav-links" id="navLinks">
                 <li><a href="#home" data-vi="Trang chủ" data-en="Home">Trang chủ</a></li>
                 <li><a href="#services" data-vi="Dịch vụ" data-en="Services">Dịch vụ</a></li>
@@ -539,7 +539,7 @@
                 <li><a href="#contact" data-vi="Liên hệ" data-en="Contact">Liên hệ</a></li>
             </ul>
             <div class="lang-switcher">
-                <button class="lang-toggle" id="langToggle" onclick="toggleLanguage()">🌐 EN</button>
+                <button class="lang-toggle" id="langToggle" onclick="toggleLanguage()">🌐 VI</button>
             </div>
             <div class="mobile-menu" id="mobileMenu">
                 <span></span>
@@ -688,13 +688,13 @@
                 <a href="#" aria-label="Twitter">🐦</a>
                 <a href="#" aria-label="GitHub">🔧</a>
             </div>
-            <p>&copy; 2024 TechSoft Solutions. All rights reserved.</p>
+            <p>&copy; 2024 Finventor Asia. All rights reserved.</p>
         </div>
     </footer>
 
     <script>
-        // Language switching functionality
-        let currentLang = 'vi';
+        // Language switching functionality - Default to English
+        let currentLang = 'en';
 
         function toggleLanguage() {
             // Switch to the opposite language
@@ -728,12 +728,29 @@
             form.setAttribute('data-success-message', successMessage);
         }
 
-        // Load saved language preference on page load
+        // Load saved language preference or set to English by default
         window.addEventListener('DOMContentLoaded', () => {
             const savedLang = localStorage.getItem('preferredLanguage');
-            if (savedLang && savedLang !== currentLang) {
-                toggleLanguage();
+            
+            // If no saved preference, default to English
+            if (!savedLang) {
+                currentLang = 'en';
+            } else {
+                currentLang = savedLang;
             }
+            
+            // Apply the language
+            const toggleBtn = document.getElementById('langToggle');
+            toggleBtn.textContent = currentLang === 'vi' ? '🌐 EN' : '🌐 VI';
+            
+            document.querySelectorAll('[data-vi][data-en]').forEach(element => {
+                const text = element.getAttribute(`data-${currentLang}`);
+                if (text) {
+                    element.textContent = text;
+                }
+            });
+            
+            updateFormMessage();
         });
 
         // Mobile menu toggle
