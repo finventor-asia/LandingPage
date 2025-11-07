@@ -672,9 +672,6 @@
                     </div>
                     <button type="submit" class="submit-btn" data-vi="Gửi tin nhắn" data-en="Send Message">Gửi tin nhắn</button>
                 </form>
-                <p style="text-align: center; margin-top: 1rem; color: #64748b; font-size: 0.9rem;" data-vi="📝 Thay thế GOOGLE_FORM_URL bằng link Google Form của bạn trong code" data-en="📝 Replace GOOGLE_FORM_URL with your Google Form link in the code">
-                    📝 Thay thế GOOGLE_FORM_URL bằng link Google Form của bạn trong code
-                </p>
             </div>
         </div>
     </section>
@@ -786,9 +783,8 @@
         document.getElementById('contactForm').addEventListener('submit', (e) => {
             e.preventDefault();
             
-            // THAY ĐỔI URL NÀY BẰNG GOOGLE FORM URL CỦA BẠN
-            // Cách lấy: Tạo Google Form → Click "Send" → Tab "Link" → Copy URL
-            const GOOGLE_FORM_URL = 'https://docs.google.com/forms/d/e/YOUR_FORM_ID/viewform';
+            // Google Form URL
+            const GOOGLE_FORM_URL = 'https://docs.google.com/forms/d/e/1FAIpQLScjbOOj9pNKNGyWeTjYlOb50XDJnZiXtxucCmxNndXFO_4dkA/viewform?usp=pp_url';
             
             // Lấy dữ liệu từ form
             const name = document.getElementById('name').value;
@@ -816,7 +812,7 @@
             formData.append('entry.ZZZZZZZZ', phone);     // Thay ZZZZZZZZ bằng entry ID của field "Số điện thoại"
             formData.append('entry.WWWWWWWW', message);   // Thay WWWWWWWW bằng entry ID của field "Nội dung"
             
-            const FORM_SUBMIT_URL = 'https://docs.google.com/forms/d/e/YOUR_FORM_ID/formResponse';
+            const FORM_SUBMIT_URL = 'https://docs.google.com/forms/d/e/1FAIpQLScjbOOj9pNKNGyWeTjYlOb50XDJnZiXtxucCmxNndXFO_4dkA/formResponse';
             
             fetch(FORM_SUBMIT_URL, {
                 method: 'POST',
