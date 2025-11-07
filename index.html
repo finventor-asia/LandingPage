@@ -1,0 +1,852 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Công ty phát triển phần mềm chuyên nghiệp - Ứng dụng Web & Mobile, Giải pháp Tài chính">
+    <title>TechSoft Solutions - Phát triển Phần mềm Chuyên nghiệp</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #2563eb;
+            --secondary-color: #1e40af;
+            --accent-color: #3b82f6;
+            --dark-color: #1e293b;
+            --light-color: #f8fafc;
+            --text-color: #334155;
+            --gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            overflow-x: hidden;
+        }
+
+        /* Header & Navigation */
+        header {
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-color);
+            font-weight: 500;
+            transition: color 0.3s;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-color);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary-color);
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .lang-switcher {
+            display: flex;
+            align-items: center;
+            margin-left: 1rem;
+        }
+
+        .lang-toggle {
+            padding: 0.6rem 1.2rem;
+            border: 2px solid var(--primary-color);
+            background: var(--gradient);
+            color: white;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+            font-size: 0.9rem;
+            position: relative;
+            overflow: hidden;
+            min-width: 80px;
+            text-align: center;
+        }
+
+        .lang-toggle:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .lang-toggle:active {
+            transform: translateY(0);
+        }
+
+        .mobile-menu {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+        }
+
+        .mobile-menu span {
+            width: 25px;
+            height: 3px;
+            background: var(--dark-color);
+            margin: 3px 0;
+            transition: 0.3s;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: var(--gradient);
+            padding: 150px 2rem 100px;
+            text-align: center;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><circle cx="50" cy="50" r="2" fill="white" opacity="0.1"/></svg>');
+            animation: float 20s linear infinite;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-100px); }
+        }
+
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            animation: fadeInUp 1s ease;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            opacity: 0.95;
+            animation: fadeInUp 1s ease 0.2s backwards;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            animation: fadeInUp 1s ease 0.4s backwards;
+        }
+
+        .btn {
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: white;
+            color: var(--primary-color);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+
+        .btn-secondary:hover {
+            background: white;
+            color: var(--primary-color);
+        }
+
+        /* Services Section */
+        .services {
+            padding: 100px 2rem;
+            background: var(--light-color);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: var(--dark-color);
+        }
+
+        .section-subtitle {
+            text-align: center;
+            font-size: 1.1rem;
+            color: var(--text-color);
+            margin-top: -2rem;
+            margin-bottom: 3rem;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .service-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: var(--gradient);
+            transform: scaleX(0);
+            transition: transform 0.3s;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+        }
+
+        .service-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .service-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .service-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--dark-color);
+        }
+
+        .service-card p {
+            color: var(--text-color);
+            line-height: 1.8;
+        }
+
+        /* Features Section */
+        .features {
+            padding: 100px 2rem;
+            background: white;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .feature-item {
+            text-align: center;
+            padding: 1.5rem;
+        }
+
+        .feature-icon {
+            width: 80px;
+            height: 80px;
+            background: var(--gradient);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            font-size: 2rem;
+            color: white;
+        }
+
+        .feature-item h4 {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+            color: var(--dark-color);
+        }
+
+        /* Technologies Section */
+        .technologies {
+            padding: 100px 2rem;
+            background: var(--dark-color);
+            color: white;
+        }
+
+        .tech-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .tech-item {
+            text-align: center;
+            padding: 1.5rem;
+            background: rgba(255,255,255,0.05);
+            border-radius: 10px;
+            transition: all 0.3s;
+        }
+
+        .tech-item:hover {
+            background: rgba(255,255,255,0.1);
+            transform: translateY(-5px);
+        }
+
+        .tech-item h4 {
+            margin-top: 1rem;
+            font-size: 1.1rem;
+        }
+
+        /* Contact Section */
+        .contact {
+            padding: 100px 2rem;
+            background: var(--light-color);
+        }
+
+        .contact-content {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .contact-form {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--dark-color);
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.8rem;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary-color);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .submit-btn {
+            width: 100%;
+            background: var(--gradient);
+            color: white;
+            padding: 1rem;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark-color);
+            color: white;
+            padding: 3rem 2rem 1rem;
+            text-align: center;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .social-links a {
+            color: white;
+            font-size: 1.5rem;
+            transition: color 0.3s;
+        }
+
+        .social-links a:hover {
+            color: var(--accent-color);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: white;
+                flex-direction: column;
+                padding: 2rem;
+                box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .lang-switcher {
+                margin-left: auto;
+                margin-right: 1rem;
+            }
+
+            .mobile-menu {
+                display: flex;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero p {
+                font-size: 1.1rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav>
+            <div class="logo">TechSoft Solutions</div>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#home" data-vi="Trang chủ" data-en="Home">Trang chủ</a></li>
+                <li><a href="#services" data-vi="Dịch vụ" data-en="Services">Dịch vụ</a></li>
+                <li><a href="#features" data-vi="Tính năng" data-en="Features">Tính năng</a></li>
+                <li><a href="#technologies" data-vi="Công nghệ" data-en="Technologies">Công nghệ</a></li>
+                <li><a href="#contact" data-vi="Liên hệ" data-en="Contact">Liên hệ</a></li>
+            </ul>
+            <div class="lang-switcher">
+                <button class="lang-toggle" id="langToggle" onclick="toggleLanguage()">🌐 EN</button>
+            </div>
+            <div class="mobile-menu" id="mobileMenu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <h1 data-vi="Giải Pháp Phần Mềm Tối Ưu Cho Doanh Nghiệp" data-en="Optimal Software Solutions For Your Business">Giải Pháp Phần Mềm Tối Ưu Cho Doanh Nghiệp</h1>
+            <p data-vi="Chuyên phát triển ứng dụng Web & Mobile, đem đến các giải pháp tài chính thông minh và sáng tạo" data-en="Specializing in Web & Mobile app development, delivering smart and innovative financial solutions">Chuyên phát triển ứng dụng Web & Mobile, đem đến các giải pháp tài chính thông minh và sáng tạo</p>
+            <div class="cta-buttons">
+                <a href="#contact" class="btn btn-primary" data-vi="Liên hệ ngay" data-en="Contact Us">Liên hệ ngay</a>
+                <a href="#services" class="btn btn-secondary" data-vi="Tìm hiểu thêm" data-en="Learn More">Tìm hiểu thêm</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="services" id="services">
+        <div class="container">
+            <h2 class="section-title" data-vi="Dịch Vụ Của Chúng Tôi" data-en="Our Services">Dịch Vụ Của Chúng Tôi</h2>
+            <p class="section-subtitle" data-vi="Chúng tôi cung cấp các giải pháp phần mềm toàn diện" data-en="We provide comprehensive software solutions">Chúng tôi cung cấp các giải pháp phần mềm toàn diện</p>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">💻</div>
+                    <h3 data-vi="Phát triển Web App" data-en="Web App Development">Phát triển Web App</h3>
+                    <p data-vi="Xây dựng ứng dụng web hiện đại, responsive và tối ưu hiệu suất. Sử dụng công nghệ tiên tiến như React, Vue.js, và Node.js để tạo ra trải nghiệm người dùng xuất sắc." data-en="Build modern, responsive web applications with optimized performance. Using cutting-edge technologies like React, Vue.js, and Node.js to create excellent user experiences.">Xây dựng ứng dụng web hiện đại, responsive và tối ưu hiệu suất. Sử dụng công nghệ tiên tiến như React, Vue.js, và Node.js để tạo ra trải nghiệm người dùng xuất sắc.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">📱</div>
+                    <h3 data-vi="Phát triển Mobile App" data-en="Mobile App Development">Phát triển Mobile App</h3>
+                    <p data-vi="Thiết kế và phát triển ứng dụng di động đa nền tảng (iOS & Android) với giao diện thân thiện, hiệu suất cao và trải nghiệm người dùng mượt mà." data-en="Design and develop cross-platform mobile applications (iOS & Android) with user-friendly interfaces, high performance, and smooth user experience.">Thiết kế và phát triển ứng dụng di động đa nền tảng (iOS & Android) với giao diện thân thiện, hiệu suất cao và trải nghiệm người dùng mượt mà.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">💰</div>
+                    <h3 data-vi="Giải pháp Tài chính" data-en="Financial Solutions">Giải pháp Tài chính</h3>
+                    <p data-vi="Cung cấp các giải pháp fintech an toàn, bảo mật cao cho ngân hàng, thanh toán điện tử, quản lý tài sản và các dịch vụ tài chính khác." data-en="Provide secure, high-security fintech solutions for banking, electronic payments, asset management, and other financial services.">Cung cấp các giải pháp fintech an toàn, bảo mật cao cho ngân hàng, thanh toán điện tử, quản lý tài sản và các dịch vụ tài chính khác.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features" id="features">
+        <div class="container">
+            <h2 class="section-title" data-vi="Tại Sao Chọn Chúng Tôi?" data-en="Why Choose Us?">Tại Sao Chọn Chúng Tôi?</h2>
+            <div class="features-grid">
+                <div class="feature-item">
+                    <div class="feature-icon">⚡</div>
+                    <h4 data-vi="Hiệu suất cao" data-en="High Performance">Hiệu suất cao</h4>
+                    <p data-vi="Tối ưu hóa code để đảm bảo tốc độ và hiệu năng tốt nhất" data-en="Optimize code to ensure the best speed and performance">Tối ưu hóa code để đảm bảo tốc độ và hiệu năng tốt nhất</p>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">🔒</div>
+                    <h4 data-vi="Bảo mật tuyệt đối" data-en="Absolute Security">Bảo mật tuyệt đối</h4>
+                    <p data-vi="Áp dụng các tiêu chuẩn bảo mật cao nhất trong ngành" data-en="Apply the highest security standards in the industry">Áp dụng các tiêu chuẩn bảo mật cao nhất trong ngành</p>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">📈</div>
+                    <h4 data-vi="Dễ mở rộng" data-en="Scalable">Dễ mở rộng</h4>
+                    <p data-vi="Kiến trúc linh hoạt, dễ dàng scale theo nhu cầu phát triển" data-en="Flexible architecture, easy to scale according to development needs">Kiến trúc linh hoạt, dễ dàng scale theo nhu cầu phát triển</p>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">🎨</div>
+                    <h4 data-vi="UX/UI Đẹp mắt" data-en="Beautiful UX/UI">UX/UI Đẹp mắt</h4>
+                    <p data-vi="Thiết kế giao diện hiện đại, trực quan và thân thiện" data-en="Modern, intuitive and user-friendly interface design">Thiết kế giao diện hiện đại, trực quan và thân thiện</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Technologies Section -->
+    <section class="technologies" id="technologies">
+        <div class="container">
+            <h2 class="section-title" style="color: white;" data-vi="Công Nghệ Sử Dụng" data-en="Technologies We Use">Công Nghệ Sử Dụng</h2>
+            <div class="tech-grid">
+                <div class="tech-item">
+                    <div style="font-size: 3rem;">⚛️</div>
+                    <h4>React / Next.js</h4>
+                </div>
+                <div class="tech-item">
+                    <div style="font-size: 3rem;">🟢</div>
+                    <h4>Node.js</h4>
+                </div>
+                <div class="tech-item">
+                    <div style="font-size: 3rem;">📱</div>
+                    <h4>React Native</h4>
+                </div>
+                <div class="tech-item">
+                    <div style="font-size: 3rem;">🔷</div>
+                    <h4>TypeScript</h4>
+                </div>
+                <div class="tech-item">
+                    <div style="font-size: 3rem;">🗄️</div>
+                    <h4>MongoDB / PostgreSQL</h4>
+                </div>
+                <div class="tech-item">
+                    <div style="font-size: 3rem;">☁️</div>
+                    <h4>AWS / Azure</h4>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact" id="contact">
+        <div class="container">
+            <h2 class="section-title" data-vi="Liên Hệ Với Chúng Tôi" data-en="Contact Us">Liên Hệ Với Chúng Tôi</h2>
+            <div class="contact-content">
+                <form class="contact-form" id="contactForm">
+                    <div class="form-group">
+                        <label for="name" data-vi="Họ và tên *" data-en="Full Name *">Họ và tên *</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email *</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone" data-vi="Số điện thoại" data-en="Phone Number">Số điện thoại</label>
+                        <input type="tel" id="phone" name="phone">
+                    </div>
+                    <div class="form-group">
+                        <label for="message" data-vi="Nội dung *" data-en="Message *">Nội dung *</label>
+                        <textarea id="message" name="message" required></textarea>
+                    </div>
+                    <button type="submit" class="submit-btn" data-vi="Gửi tin nhắn" data-en="Send Message">Gửi tin nhắn</button>
+                </form>
+                <p style="text-align: center; margin-top: 1rem; color: #64748b; font-size: 0.9rem;" data-vi="📝 Thay thế GOOGLE_FORM_URL bằng link Google Form của bạn trong code" data-en="📝 Replace GOOGLE_FORM_URL with your Google Form link in the code">
+                    📝 Thay thế GOOGLE_FORM_URL bằng link Google Form của bạn trong code
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="social-links">
+                <a href="#" aria-label="Facebook">📘</a>
+                <a href="#" aria-label="LinkedIn">💼</a>
+                <a href="#" aria-label="Twitter">🐦</a>
+                <a href="#" aria-label="GitHub">🔧</a>
+            </div>
+            <p>&copy; 2024 TechSoft Solutions. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Language switching functionality
+        let currentLang = 'vi';
+
+        function toggleLanguage() {
+            // Switch to the opposite language
+            currentLang = currentLang === 'vi' ? 'en' : 'vi';
+            
+            // Update button text to show the OTHER language (the one to switch TO)
+            const toggleBtn = document.getElementById('langToggle');
+            toggleBtn.textContent = currentLang === 'vi' ? '🌐 EN' : '🌐 VI';
+
+            // Update all elements with data attributes
+            document.querySelectorAll('[data-vi][data-en]').forEach(element => {
+                const text = element.getAttribute(`data-${currentLang}`);
+                if (text) {
+                    element.textContent = text;
+                }
+            });
+
+            // Update form submit alert message
+            updateFormMessage();
+
+            // Save language preference
+            localStorage.setItem('preferredLanguage', currentLang);
+        }
+
+        function updateFormMessage() {
+            const form = document.getElementById('contactForm');
+            const successMessage = currentLang === 'vi' 
+                ? 'Cảm ơn bạn đã liên hệ! Chúng tôi sẽ phản hồi sớm nhất có thể.'
+                : 'Thank you for contacting us! We will respond as soon as possible.';
+            
+            form.setAttribute('data-success-message', successMessage);
+        }
+
+        // Load saved language preference on page load
+        window.addEventListener('DOMContentLoaded', () => {
+            const savedLang = localStorage.getItem('preferredLanguage');
+            if (savedLang && savedLang !== currentLang) {
+                toggleLanguage();
+            }
+        });
+
+        // Mobile menu toggle
+        const mobileMenu = document.getElementById('mobileMenu');
+        const navLinks = document.getElementById('navLinks');
+
+        mobileMenu.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+
+        // Close mobile menu when clicking on a link
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+            });
+        });
+
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Form submission with Google Forms integration
+        document.getElementById('contactForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            // THAY ĐỔI URL NÀY BẰNG GOOGLE FORM URL CỦA BẠN
+            // Cách lấy: Tạo Google Form → Click "Send" → Tab "Link" → Copy URL
+            const GOOGLE_FORM_URL = 'https://docs.google.com/forms/d/e/YOUR_FORM_ID/viewform';
+            
+            // Lấy dữ liệu từ form
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const phone = document.getElementById('phone').value;
+            const message = document.getElementById('message').value;
+            
+            // OPTION 1: Mở Google Form trong tab mới (đơn giản nhất)
+            // Người dùng sẽ điền vào Google Form
+            window.open(GOOGLE_FORM_URL, '_blank');
+            
+            // OPTION 2: Submit trực tiếp vào Google Form (cần entry IDs)
+            // Uncomment phần này nếu bạn muốn submit trực tiếp
+            /*
+            // Bạn cần lấy entry IDs từ Google Form:
+            // 1. Mở Google Form của bạn
+            // 2. Click "Preview" (biểu tượng mắt)
+            // 3. Right-click → "Inspect" → Tab "Network"
+            // 4. Điền form và submit
+            // 5. Tìm request "formResponse" để xem entry IDs
+            
+            const formData = new FormData();
+            formData.append('entry.XXXXXXXX', name);      // Thay XXXXXXXX bằng entry ID của field "Họ và tên"
+            formData.append('entry.YYYYYYYY', email);     // Thay YYYYYYYY bằng entry ID của field "Email"
+            formData.append('entry.ZZZZZZZZ', phone);     // Thay ZZZZZZZZ bằng entry ID của field "Số điện thoại"
+            formData.append('entry.WWWWWWWW', message);   // Thay WWWWWWWW bằng entry ID của field "Nội dung"
+            
+            const FORM_SUBMIT_URL = 'https://docs.google.com/forms/d/e/YOUR_FORM_ID/formResponse';
+            
+            fetch(FORM_SUBMIT_URL, {
+                method: 'POST',
+                mode: 'no-cors',
+                body: formData
+            }).then(() => {
+                const successMessage = currentLang === 'vi' 
+                    ? 'Cảm ơn bạn đã liên hệ! Chúng tôi sẽ phản hồi sớm nhất có thể.'
+                    : 'Thank you for contacting us! We will respond as soon as possible.';
+                alert(successMessage);
+                e.target.reset();
+            }).catch(() => {
+                const errorMessage = currentLang === 'vi'
+                    ? 'Có lỗi xảy ra. Vui lòng thử lại!'
+                    : 'An error occurred. Please try again!';
+                alert(errorMessage);
+            });
+            */
+            
+            // Thông báo cho người dùng
+            const successMessage = currentLang === 'vi' 
+                ? 'Đang mở Google Form. Vui lòng điền thông tin!'
+                : 'Opening Google Form. Please fill in your information!';
+            alert(successMessage);
+            
+            // Reset form
+            e.target.reset();
+        });
+
+        // Header scroll effect
+        let lastScroll = 0;
+        const header = document.querySelector('header');
+
+        window.addEventListener('scroll', () => {
+            const currentScroll = window.pageYOffset;
+            
+            if (currentScroll > 100) {
+                header.style.padding = '0.5rem 0';
+            } else {
+                header.style.padding = '1rem 0';
+            }
+            
+            lastScroll = currentScroll;
+        });
+
+        // Initialize form message
+        updateFormMessage();
+    </script>
+</body>
+</html>
