@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Professional software development company - Web & Mobile App Development, Financial Solutions">
-    <title>Finventor Asia - Professional Software Development</title>
+    <title>Finventor - Professional Software Development</title>
     <style>
         * {
             margin: 0;
@@ -13,13 +13,13 @@
         }
 
         :root {
-            --primary-color: #2563eb;
-            --secondary-color: #1e40af;
-            --accent-color: #3b82f6;
+            --primary-color: #6b46c1;
+            --secondary-color: #553c9a;
+            --accent-color: #8b5cf6;
             --dark-color: #1e293b;
             --light-color: #f8fafc;
             --text-color: #334155;
-            --gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --gradient: linear-gradient(135deg, #6b46c1 0%, #8b5cf6 100%);
         }
 
         body {
@@ -53,10 +53,18 @@
         .logo {
             font-size: 1.8rem;
             font-weight: bold;
-            background: var(--gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            display: flex;
+            align-items: center;
+        }
+
+        .logo img {
+            height: 50px;
+            width: auto;
+            transition: transform 0.3s ease;
+        }
+
+        .logo:hover img {
+            transform: scale(1.05);
         }
 
         .nav-links {
@@ -139,7 +147,7 @@
 
         /* Hero Section */
         .hero {
-            background: var(--gradient);
+            background: linear-gradient(135deg, #6b46c1 0%, #8b5cf6 50%, #a78bfa 100%);
             padding: 150px 2rem 100px;
             text-align: center;
             color: white;
@@ -466,6 +474,10 @@
 
         /* Responsive */
         @media (max-width: 768px) {
+            .logo img {
+                height: 40px;
+            }
+
             .nav-links {
                 display: none;
                 position: absolute;
@@ -522,7 +534,9 @@
     <!-- Header -->
     <header>
         <nav>
-            <a href="#home" class="logo" style="text-decoration: none; cursor: pointer;">Finventor Asia</a>
+            <a href="#home" class="logo" style="text-decoration: none; cursor: pointer;">
+                <img src="logo.png" alt="Finventor Asia Logo">
+            </a>
             <ul class="nav-links" id="navLinks">
                 <li><a href="#home" data-vi="Trang chủ" data-en="Home">Trang chủ</a></li>
                 <li><a href="#services" data-vi="Dịch vụ" data-en="Services">Dịch vụ</a></li>
@@ -674,7 +688,7 @@
             <div style="text-align: left; font-size: 0.85rem; line-height: 1.6;">
                 <p style="margin-bottom: 0.3rem;" data-vi="Tầng 6, Tòa Az Lâm Viên, Số 107A Nguyễn Phong Sắc, Thành phố Hà Nội, Việt Nam" data-en="6th Floor, Az Lam Vien Building, No. 107A Nguyen Phong Sac, Hanoi, Vietnam">6th Floor, Az Lam Vien Building, No. 107A Nguyen Phong Sac, Hanoi, Vietnam</p>
                 <p style="margin-bottom: 0;">
-                    <a href="mailto:contact@finventor.asia" style="color: white; text-decoration: none; transition: color 0.3s;" onmouseover="this.style.color='#3b82f6'" onmouseout="this.style.color='white'">
+                    <a href="mailto:contact@finventor.asia" style="color: white; text-decoration: none; transition: color 0.3s;" onmouseover="this.style.color='#a78bfa'" onmouseout="this.style.color='white'">
                         📧 contact@finventor.asia
                     </a>
                 </p>
@@ -797,44 +811,51 @@
             formData.append('entry.1715100978', phone);     // Số điện thoại
             formData.append('entry.944490014', message);    // Nội dung
             
+            // Log for debugging (remove in production if needed)
+            console.log('Submitting to Google Form:');
+            console.log('Name:', name);
+            console.log('Email:', email);
+            console.log('Phone:', phone);
+            console.log('Message:', message);
+            console.log('URL:', FORM_SUBMIT_URL);
+            console.log('Entry IDs: 1106413241, 1194147422, 1715100978, 944490014');
+            
             // Disable submit button to prevent double submission
             const submitBtn = e.target.querySelector('.submit-btn');
             const originalBtnText = submitBtn.textContent;
             submitBtn.disabled = true;
             submitBtn.textContent = currentLang === 'vi' ? 'Đang gửi...' : 'Sending...';
             
-            // Submit to Google Form
+            // Submit to Google Form using fetch
             fetch(FORM_SUBMIT_URL, {
                 method: 'POST',
                 mode: 'no-cors',
                 body: formData
             }).then(() => {
-                // Success message
+                // With no-cors mode, we can't read the response
+                // But the submission usually succeeds
+                console.log('Form submitted (no-cors mode - cannot verify response)');
+                
                 const successMessage = currentLang === 'vi' 
                     ? 'Cảm ơn bạn đã liên hệ! Chúng tôi sẽ phản hồi sớm nhất có thể.'
                     : 'Thank you for contacting us! We will get back to you soon.';
                 
-                // Show beautiful success alert
                 showSuccessMessage(successMessage);
-                
-                // Reset form
                 e.target.reset();
-                
-                // Re-enable submit button
                 submitBtn.disabled = false;
                 submitBtn.textContent = originalBtnText;
             }).catch((error) => {
-                // Even with error, form is usually submitted successfully due to no-cors mode
+                // Even with "error", the form is usually submitted successfully
+                // This is because no-cors mode prevents reading the response
+                console.log('Fetch completed with no-cors mode (this is normal)');
+                console.log('Check Google Form Responses to verify submission');
+                
                 const successMessage = currentLang === 'vi' 
                     ? 'Cảm ơn bạn đã liên hệ! Chúng tôi sẽ phản hồi sớm nhất có thể.'
                     : 'Thank you for contacting us! We will get back to you soon.';
                 
                 showSuccessMessage(successMessage);
-                
-                // Reset form
                 e.target.reset();
-                
-                // Re-enable submit button
                 submitBtn.disabled = false;
                 submitBtn.textContent = originalBtnText;
             });
@@ -873,7 +894,7 @@
             
             messageBox.innerHTML = `
                 <div style="font-size: 3rem; margin-bottom: 1rem;">✓</div>
-                <h3 style="color: #2563eb; margin-bottom: 1rem; font-size: 1.5rem;">
+                <h3 style="color: #6b46c1; margin-bottom: 1rem; font-size: 1.5rem;">
                     ${currentLang === 'vi' ? 'Thành công!' : 'Success!'}
                 </h3>
                 <p style="color: #64748b; line-height: 1.6;">${message}</p>
